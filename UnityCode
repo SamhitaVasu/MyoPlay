@@ -1,0 +1,116 @@
+using UnityEngine;
+using System.IO.Ports;
+using System.Media;
+using UnityEngine.UI;
+
+public class ImagesAppearing : MonoBehaviour {
+
+    public static int score = 0;
+    public static int end = 0;
+
+    Text text;
+
+    public AudioClip beep;
+    public AudioClip ting;
+    public AudioClip clap;
+    public AudioSource source;
+    public AudioSource sourceT;
+    public AudioSource sourceE;
+
+    private float nextActionTime = 0.0f;
+    public float period = 0.1f;
+    SerialPort stream = new SerialPort("/dev/cu.usbserial-AH02Y9L4", 9600);
+
+    [SerializeField] GameObject[] objects;
+    int index = -1;
+    int input;
+
+    void Start()
+    {
+        text = GetComponent<Text>();
+        foreach (GameObject go in objects)
+            go.SetActive(false);
+        stream.Open();
+        source.clip = beep;
+        sourceT.clip = ting;
+        sourceE.clip = clap;
+        index = -1;
+        score = 0;
+    }
+
+    void Update()
+    {
+       if (Time.time > nextActionTime && end == 0)
+        {
+            nextActionTime += period;
+            // execute block of code here
+            string val = stream.ReadLine();
+            input = int.Parse(val);
+            print(input);
+            if (input == 1) //change this to whatever you want for input
+            {
+                index++;
+                if (index < objects.Length)
+                {
+                    // to avoid indexing errors
+                    objects[index].SetActive(true);
+                    sourceT.Play();
+                }
+            }
+            if(input == 2)
+            {
+            //   if (index < objects.Length)
+              //  { // to avoid indexing errors
+                    objects[index+1].SetActive(false);
+                    source.Play();
+            //   }
+            }  
+            if (index >= objects.Length)
+            {
+                    sourceE.Play();
+                    end = 1;
+            }
+        } 
+
+    }
+
+    private void OnGUI()
+    {
+
+        if (Time.time > nextActionTime && end == 0)
+        {
+            nextActionTime += period;
+            // execute block of code here
+            string val = stream.ReadLine();
+            input = int.Parse(val);
+            print(input);
+            /*    if (input == 2) //change this to whatever you want for input
+                {
+
+                } */
+            if (input == 2)
+            {
+          //          objects[index].SetActive(false);
+                    source.Play();
+                    string newString = "Score: " + score;
+                    GUI.Label(new Rect(10, 10, 300, 100), newString);
+            }
+            if (index >= objects.Length)
+            {
+                sourceE.Play();
+                end = 1;
+            }
+        }
+        if (input == 1 && end == 0) //change this to whatever you want for input
+        {
+            if (index < objects.Length)
+            { // to avoid indexing errors
+                objects[index].SetActive(true);
+                sourceT.Play();
+            }
+            score = (index + 1) * 10;
+            string newString = "Score: " + score;
+            GUI.Label(new Rect(10, 10, 300, 100), newString);
+        }
+    } 
+}
