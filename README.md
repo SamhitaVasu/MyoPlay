@@ -1,1 +1,6 @@
 # MyoPlay
+Diabetes, Stroke, and Heart Disease are among the top ten causes of death worldwide. They are all associated with Metabolic Syndrome. Sarcopenia is the loss of muscle over time. Resistance Training is a solution for both of these, but the currennt practice is not very accessible, not effective, not safe, and not fun. 
+MyoPlay combats Metabolic Syndrome and Sarcopenia through a fun, effective, and accessible game. 
+MyoPlay directly checks if the user is fatigued using an sEMG. With this, MyoPlay makes resistance training more effective because the user knows he/she is doing the exercise incorrectly and can fix it. This also makes resistance training safer because the user knows when to take a break accrding to when he/she is tired.
+MyoPlay is a game, not a gym. This makes it more accessible to people who don't have time to go to the gym or can't afford a home gym.
+As the user does a correct exercise, MyoPlay reveals a puzzle piece of the 36 piece puzzle and adds 10 points to your score. Completing one whole puzzle gives the user a total of 360 points, but over time they may accumulate unlimited points. The user must complete one puzzle every 70 hours, or their streak will break and all their points will be lost. This makes MyoPlay more fun because the user has to work for a goal.
